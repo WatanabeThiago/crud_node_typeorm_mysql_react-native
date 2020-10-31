@@ -1,62 +1,63 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateUsersTable1601925154433 implements MigrationInterface {
-    
+
 
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
 
 
-        await queryRunner.createTable( new Table({
+
+        await queryRunner.createTable(new Table({
             name: 'users',
             columns: [
                 {
                     name: 'id',
-                    type: 'uuid',
+                    type: 'integer',
+                    unsigned: true,
                     isPrimary: true,
-                    generationStrategy: 'uuid',
-                    default: 'uuid_generate_v4()'
+                    isGenerated: true,
+                    generationStrategy: 'increment',
 
                 },
                 {
                     name: 'email',
-                    type:'varchar',
+                    type: 'varchar',
                     isUnique: true
                 },
                 {
-                    
+
                     name: 'name',
-                    type:'varchar'
+                    type: 'varchar'
                 },
                 {
                     name: 'username',
-                    type:'varchar',
+                    type: 'varchar',
                     isUnique: true,
                     isPrimary: true,
-            
+
                 },
                 {
                     name: 'password',
-                    type:'varchar',
+                    type: 'varchar',
                 },
-           /*     {
-                    name: 'photo',
-                    type:'varchar',
-                  },*/
+                /*     {
+                         name: 'photo',
+                         type:'varchar',
+                       },*/
                 {
                     name: 'city',
-                    type:'varchar',
+                    type: 'varchar',
                 },
                 {
                     name: 'uf',
-                    type:'varchar',
+                    type: 'varchar',
                 },
                 {
                     name: 'age',
-                    type:'varchar',
+                    type: 'varchar',
                 },
-                
+
             ]
         }))
     }
@@ -64,7 +65,6 @@ export class CreateUsersTable1601925154433 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
 
         await queryRunner.dropTable('users')
-        await queryRunner.query('DROP EXTENSION "uuid-ossp"')
     }
 
 }
