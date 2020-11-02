@@ -9,14 +9,17 @@ import HomePage from './screens/HomePage'
 import createEmail_Name from './screens/register/createUser'
 import editUser from './screens/editUser'
 
-
+import logo from '../assets/header.png'
 const Stack = createStackNavigator();
 
 function Routes() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomePage} />
+        <Stack.Screen name="Home" component={HomePage} options={{
+          headerShown: false
+
+        }}/>
         <Stack.Screen name="editUser" component={editUser} />
         
         <Stack.Screen name="createEmail_Name" component={createEmail_Name} options={{headerShown: false}}/>

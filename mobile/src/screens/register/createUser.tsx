@@ -9,6 +9,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons'
 
 import api from '../../services/api';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
@@ -58,24 +59,22 @@ export default function createUser() {
 
 
     return (
+        <SafeAreaView>
         <KeyboardAwareScrollView>
             <View style={styles.container}>
-                <Text>Seu nome {name}</Text>
                 <TextInput
                     placeholder="Name"
-                    placeholderTextColor="#F1DABF"
+                    placeholderTextColor="#45462A"
                     style={styles.textinput}
                     returnKeyType="next"
                     autoFocus={true} blurOnSubmit={false}
 
                     value={name}
-                    onChangeText={setName}
-
+                    onChangeText ={setName}
                 />
-                <Text>Seu melhor e-mail</Text>
                 <TextInput
                     placeholder="exemplo.exemplo@gmail.com"
-                    placeholderTextColor="#F1DABF"
+                    placeholderTextColor="#45462A"
                     style={styles.textinput}
                     returnKeyType="next"
                     autoFocus={true} blurOnSubmit={false}
@@ -86,7 +85,7 @@ export default function createUser() {
                 />
                 <TextInput
                     placeholder="@nome_de_usuario"
-                    placeholderTextColor="#F1DABF"
+                    placeholderTextColor="#45462A"
                     style={styles.textinput}
                     returnKeyType="next"
                     autoFocus={true} blurOnSubmit={false}
@@ -97,7 +96,7 @@ export default function createUser() {
                 />
                 <TextInput
                     placeholder="Cidade"
-                    placeholderTextColor="#F1DABF"
+                    placeholderTextColor="#45462A"
                     style={styles.textinput}
                     returnKeyType="next"
                     autoFocus={true} blurOnSubmit={false}
@@ -108,7 +107,7 @@ export default function createUser() {
                 />
                 <TextInput
                     placeholder="UF"
-                    placeholderTextColor="#F1DABF"
+                    placeholderTextColor="#45462A"
                     style={styles.textinput}
                     returnKeyType="next"
                     autoFocus={true} blurOnSubmit={false}
@@ -119,7 +118,7 @@ export default function createUser() {
                 />
                 <TextInput
                     placeholder="Idade"
-                    placeholderTextColor="#F1DABF"
+                    placeholderTextColor="#45462A"
                     style={styles.textinput}
                     returnKeyType="next"
                     autoFocus={true} blurOnSubmit={false}
@@ -132,7 +131,7 @@ export default function createUser() {
                     secureTextEntry={true}
                     autoCompleteType="password"
                     placeholder="Senha"
-                    placeholderTextColor="#F1DABF"
+                    placeholderTextColor="#45462A"
                     style={styles.textinput}
 
                     returnKeyType="next"
@@ -140,7 +139,9 @@ export default function createUser() {
                     value={password}
                     onChangeText={setPassword}
                 />
-                <TouchableOpacity onPress={() => handleCreateUser()}
+                <TouchableOpacity 
+                style={styles.button}
+                onPress={() => handleCreateUser()}
                 >
                     <Text>Finalizar</Text>
                 </TouchableOpacity>
@@ -150,6 +151,7 @@ export default function createUser() {
 
             </View>
         </KeyboardAwareScrollView>
+        </SafeAreaView>
     );
 }
 
@@ -158,11 +160,16 @@ export default function createUser() {
 const styles = StyleSheet.create({
     container: {
         flex: 1, alignItems: 'center', justifyContent: 'center'
+        , backgroundColor: "#45462A"
     },
     textinput: {
         backgroundColor: '#FFF', padding: 24,
         borderRadius: 14,
         width: "75%", margin: 10
+    },
+    button: {
+        padding: 24, alignItems: 'center', justifyContent: 'center',
+        backgroundColor: '#DC851F', borderRadius: 12
     }
 
 

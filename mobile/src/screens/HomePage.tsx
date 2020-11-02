@@ -1,14 +1,10 @@
 // In App.js in a new project
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useFocusEffect, useNavigation, } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons'
-import {
-    useFonts,
-    Montserrat_100Thin,
-} from '@expo-google-fonts/montserrat';
 
 import api from '../services/api';
 
@@ -41,6 +37,21 @@ export default function HomePage() {
 
     async function deleteUser(id: number) {
         await api.delete(`users/${id}`)
+        .then(() => {
+            console.log('[Axios.post] Tentando deletar...')
+            Alert.alert('Sucesso', 'Cadastro deletado com sucesso', [{ text: 'Ok', onPress: ( ) => navigation.navigate('Home') }])
+        })
+        .catch(({response}) => {
+            const { message, erros } = response
+
+            if(!message) {
+                console.log(response)
+                return Alert.alert('Erro', 'Falha ao deletar usuario.')
+            }
+
+            console.error(message)
+            Alert.alert('Erro', message)
+        })
         console.log(id)
 
         loadUsers()
@@ -56,39 +67,35 @@ export default function HomePage() {
         navigation.navigate("editUser", user);
     }
 
-    export default () => {
-        let [fontsLoaded] = useFonts({
-            Inter_900Black,
-        });
-
-        if (!fontsLoaded) {
-            return <AppLoading />;
-        } else {
+    
             return (
                 <View style={styles.container}>
-                    <TouchableOpacity onPress={() => navigation.navigate('createEmail_Name')} style={{ flexDirection: 'row', backgroundColor: '#FFF', padding: 14, borderRadius: 14 }}>
-                        <Text>Criar usuario </Text>
-                        <Feather name="plus-circle" size={14} color="#000" />
+                    <View style={styles.header}>
+                    <TouchableOpacity onPress={() => navigation.navigate('createEmail_Name')} style={styles.icons}>
+                        <Feather name="plus-circle" size={24} color="#FFF" />
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Feather name="refresh-cw" size={60} color="#000" onPress={() => loadUsers()} />
+                    <TouchableOpacity style={styles.icons}>
+                        <Feather name="refresh-cw" size={24} color="#FFF" onPress={() => loadUsers()} />
                     </TouchableOpacity>
 
+                    </View>
+
                     <FlatList
+                        style={styles.flatlist}
                         data={users}
                         keyExtractor={user => String(user.id)}
                         renderItem={({ item: user }) => (
                             <View style={styles.card}>
                                 <View style={styles.header}>
                                     <TouchableOpacity style={styles.icons} onPress={() => deleteUser(user.id)}>
-                                        <Feather name="trash-2" size={24} color="#000" />
+                                        <Feather name="trash-2" size={24} color="#242038" />
                                     </TouchableOpacity>
                                     <TouchableOpacity style={styles.icons}
                                         onPress={() => {
                                             navigateToEdit(user)
                                         }}
                                     >
-                                        <Feather name="edit" size={24} color="#000" />
+                                        <Feather name="edit" size={24} color="#242038" />
                                     </TouchableOpacity>
                                 </View>
                                 <Text style={styles.name}>{user.name}</Text>
@@ -96,25 +103,23 @@ export default function HomePage() {
                                 <Text style={styles.about}>Tem {user.age} anos e mora em {user.city} - {user.uf}</Text>
                             </View>
                         )}
-
-
-
                     />
 
                 </View>
             );
         }
-    }
+    
 
 
 
     const styles = StyleSheet.create({
         container: {
-            flex: 1, alignItems: 'center', justifyContent: 'center'
+            flex: 1, alignItems: 'center', justifyContent: 'center',
+            backgroundColor: '#7E5920', padding: 10
         },
         name: {
             fontSize: 24,
-            fontFamily: "Montserrat_100Thin"
+            
         },
         card: {
             backgroundColor: '#fff',
@@ -137,6 +142,11 @@ export default function HomePage() {
         },
         about: {
             marginTop: 10
+        },
+        flatlist: {
+            backgroundColor: '#DC851F', 
+            borderRadius: 24,
+            padding: 24
         }
     })
 

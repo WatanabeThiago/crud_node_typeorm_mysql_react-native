@@ -20,8 +20,6 @@ interface User {
     age: number
 }
 
-
-
 export default function editUser() {
     const navigation = useNavigation()
     const route = useRoute();
@@ -33,9 +31,20 @@ export default function editUser() {
     const [uf, setUf] = useState('')
     const [password, setPassword] = useState('')
     const [age, setAge] = useState('')
+    
+    const [valueemail, setvalueEmail] = useState('')
+    const [valuename, setvalueName] = useState('')
+    const [valueusername, setvalueUsername] = useState('')
+    const [valuecity, setvalueCity] = useState('')
+    const [valueuf, setvalueUf] = useState('')
+    const [valuepassword, setvaluePassword] = useState('')
+    const [valueage, setvalueAge] = useState('')
    
+    
 
     const user = route.params;
+
+    
 
     console.log('---------------')
     console.log('[editUser]')
@@ -43,6 +52,7 @@ export default function editUser() {
     console.log(user)
  
 
+        
     async function HandleEditUser() {
         const data = {
             email: email,
@@ -81,7 +91,7 @@ return (
     <KeyboardAwareScrollView>
         <View style={styles.container}>
             
-            <Text></Text>
+        
             <TextInput
                 placeholder={user.name}
                 placeholderTextColor="#F1DABF"
@@ -89,63 +99,58 @@ return (
                 returnKeyType="next"
                 autoFocus={true} blurOnSubmit={false}
 
-                value={name}
                 onChangeText={setName}
 
             />
-            <Text>Seu melhor e-mail</Text>
+         
             <TextInput
-                placeholder={email}
+                placeholder={user.email}
                 placeholderTextColor="#F1DABF"
                 style={styles.textinput}
                 returnKeyType="next"
                 autoFocus={true} blurOnSubmit={false}
 
-                value={email}
+                
                 onChangeText={setEmail}
 
             />
             <TextInput
-                placeholder="@nome_de_usuario"
+                placeholder={user.username}
                 placeholderTextColor="#F1DABF"
                 style={styles.textinput}
                 returnKeyType="next"
                 autoFocus={true} blurOnSubmit={false}
 
-                value={username}
                 onChangeText={setUsername}
 
             />
             <TextInput
-                placeholder="Cidade"
+                placeholder={user.city}
                 placeholderTextColor="#F1DABF"
                 style={styles.textinput}
                 returnKeyType="next"
                 autoFocus={true} blurOnSubmit={false}
 
-                value={city}
                 onChangeText={setCity}
 
             />
             <TextInput
-                placeholder="UF"
+                placeholder={user.uf}
                 placeholderTextColor="#F1DABF"
                 style={styles.textinput}
                 returnKeyType="next"
                 autoFocus={true} blurOnSubmit={false}
 
-                value={uf}
                 onChangeText={setUf}
 
             />
             <TextInput
-                placeholder="Idade"
+                placeholder={user.age}
                 placeholderTextColor="#F1DABF"
                 style={styles.textinput}
                 returnKeyType="next"
                 autoFocus={true} blurOnSubmit={false}
                 keyboardType="numeric"
-                value={age}
                 onChangeText={setAge}
 
             />
@@ -158,7 +163,7 @@ return (
 
                 returnKeyType="next"
 
-                value={password}
+                value={valuepassword}
                 onChangeText={setPassword}
             />
             <TouchableOpacity onPress={() => HandleEditUser()}
@@ -179,9 +184,10 @@ return (
 const styles = StyleSheet.create({
     container: {
         flex: 1, alignItems: 'center', justifyContent: 'center'
+        , backgroundColor: "#343330"
     },
     textinput: {
-        backgroundColor: '#FFF', padding: 24,
+        backgroundColor: '#DC851F', padding: 24,
         borderRadius: 14,
         width: "75%", margin: 10
     }
