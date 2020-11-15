@@ -7,4 +7,6 @@ CRUD feito em Node, com TypeORM, MySQL e TypeScript. A parte mobile está sendo 
 O projeto é um CRUD simples com apenas uma tabela, o projeto é feito em NodeJS, TypeORM e MySQL. 
 A parte mobile é feita em React Native e tem como único objetivo consumir a API.
 
+#
+
 
