@@ -35,19 +35,12 @@ class UserController {
 
         const userExists = await repository.findOne({ where: { id } })
 
-
         console.log(req.params)
 
         if (!userExists) {
             return res.sendStatus(404);
-            return res.send('Usuario nao achado');
+
         }
-
-
-
-
-
-
         await getConnection()
             .createQueryBuilder()
             .delete()

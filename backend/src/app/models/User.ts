@@ -19,7 +19,6 @@ class User {
     password: string;
    
 
-
     @Column()
     city: string;
     
